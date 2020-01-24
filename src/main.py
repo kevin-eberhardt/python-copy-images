@@ -1,30 +1,33 @@
 from tkinter import filedialog
 from tkinter import *
 import os
+from src.assets.directory import Directory
+
 
 def get_dir(directory, name):
-    flist = os.listdir(directory)
+    flist = os.walk(directory)
     if(name == "source"):
-        print("Im Source-Ordner:")
+        source = Directory("Source")
+        for element in flist:
+            source.push(element)
+        print(source.getRoot())
     elif (name == "dest"):
-        print("Im Destination-Ordner:")
+        destination = Directory("Destination")
+        for element in flist:
+            destination.push(element)
+        print(destination.getContent())
     else:
         print("Select folder")
-    for element in flist:
-        print(element)
 
 def browse_source():
-    # Allow user to select a directory and store it in global var
-    # called folder_path
     global source_path
     filename = filedialog.askdirectory()
     get_dir(filename, "source")
     source_path.set(filename)
     print(filename)
 
+
 def browse_destination():
-    # Allow user to select a directory and store it in global var
-    # called folder_path
     global destination_path
     filename = filedialog.askdirectory()
     get_dir(filename, "dest")
