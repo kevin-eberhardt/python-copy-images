@@ -7,10 +7,10 @@ from src.assets.directory import Directory
 def get_dir(directory, name):
     flist = os.walk(directory)
     if(name == "source"):
-        source = Directory("Source")
+        directory = Directory("Source")
         for element in flist:
-            source.push(element)
-        print(source.getRoot())
+            directory.push(element)
+        print(directory.getHierarchy())
     elif (name == "dest"):
         destination = Directory("Destination")
         for element in flist:

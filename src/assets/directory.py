@@ -4,23 +4,27 @@ from src.assets.file import File
 class Directory():
     def __init__(self, head):
         self._head = head
-        self._items = []
         self._folder = []
+        self._metadata = []
     def push(self, element):
         if(element[2] is not None):
-            self._folder.append(Folder(element))
+            newFolder = Folder(element[0])
+            for file in element[2]:
+                newFolder.push(file)
+            self._folder.append(newFolder)
         else:
-            self._items.append(File(element))
-
+            print("Nix gemacht")
+            print(element)
     def whatAmI(self):
         return self._head
 
-    def getContent(self):
-        print("Inhalte in der Directory '" + self._head + "':")
-        for element in self._items:
-            print(element)
 
     def getRoot(self):
         print("Folder in der Directory '" + self._head + "':")
         for element in self._folder:
-            print(element)
+            print(element.getName())
+
+    def getHierarchy(self):
+        for folder in self._folder:
+            print(folder.getName())
+            folder.getHierarchy()
