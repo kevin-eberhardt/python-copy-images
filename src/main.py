@@ -1,8 +1,7 @@
-from tkinter import filedialog
 from tkinter import *
+from tkinter import filedialog
 import os
 from src.assets.directory import Directory
-
 
 def get_dir(directory, name):
     flist = os.walk(directory)
@@ -10,7 +9,7 @@ def get_dir(directory, name):
         directory = Directory("Source")
         for element in flist:
             directory.push(element)
-        print(directory.getHierarchy())
+        print(directory.getImages())
     elif (name == "dest"):
         destination = Directory("Destination")
         for element in flist:
@@ -45,8 +44,8 @@ d = Label(master=root, text="Select destination:")
 d.grid(row=1, column=1)
 destination_path = StringVar()
 source_path = StringVar()
-source_lbl = Label(master=root,textvariable=source_path)
-destination_lbl = Label(master=root,textvariable=destination_path)
+source_lbl = Label(master=root, textvariable=source_path)
+destination_lbl = Label(master=root, textvariable=destination_path)
 button1 = Button(text="Browse", command=browse_source)
 button1.grid(row=0, column=3, columnspan=2)
 button2 = Button(text="Browse", command=browse_destination)

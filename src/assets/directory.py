@@ -28,3 +28,7 @@ class Directory():
         for folder in self._folder:
             print(folder.getName())
             folder.getHierarchy()
+
+    def getImages(self):
+        for folder in self._folder:
+            folder.getImages()

@@ -6,7 +6,9 @@ class Folder:
         self._metadata = []
 
     def push(self, file):
-        self._files.append(File(file, self))
+        file = file.lower()
+        if(file.endswith(".jpg", 4) or file.endswith(".jpeg", 4)):
+            self._files.append(File(file, self))
 
     def getName(self):
         return self._head
@@ -14,3 +16,11 @@ class Folder:
     def getHierarchy(self):
         for file in self._files:
             print("-    " + file.getName())
+
+    def getImages(self):
+        for file in self._files:
+            if file._type == "Image":
+                print(file._head + " erstellt am: " + str(file._metadata[0]['datetime']))
+                print(str(file._metadata))
+            else:
+                pass
