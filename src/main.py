@@ -9,12 +9,11 @@ def get_dir(directory, name):
         directory = Directory("Source")
         for element in flist:
             directory.push(element)
-        print(directory.getImages())
+        print(directory.getHierarchy())
     elif (name == "dest"):
         destination = Directory("Destination")
         for element in flist:
             destination.push(element)
-        print(destination.getContent())
     else:
         print("Select folder")
 
@@ -23,7 +22,6 @@ def browse_source():
     filename = filedialog.askdirectory()
     get_dir(filename, "source")
     source_path.set(filename)
-    print(filename)
 
 
 def browse_destination():
@@ -31,7 +29,6 @@ def browse_destination():
     filename = filedialog.askdirectory()
     get_dir(filename, "dest")
     destination_path.set(filename)
-    print(filename)
 
 def make_label(input):
     label = Label(master=root, text=input)

@@ -1,5 +1,5 @@
-from exif import Image
 from datetime import datetime
+import exifread
 class File():
     def __init__(self, head, folder):
         self._head = head
@@ -10,15 +10,19 @@ class File():
         for ext in image_exts:
             if(ext in head.lower()):
                 with open(folder.getName()+"/"+head, 'rb') as image_file:
-                    my_image = Image(image_file)
+                    my_image = exifread.process_file(image_file)
                 self._type = "Image"
-                date = datetime.strptime(my_image.datetime_original, '%Y:%m:%d %H:%M:%S')
-                datetime_digitized = datetime.strptime(my_image.datetime_digitized, '%Y:%m:%d %H:%M:%S')
+                if("Image DateTime" in my_image):
+                    stripped = str(my_image.get('Image DateTime'))
+                    if my_image.get('Image DateTime') is not None:
+                        date = datetime.strptime(stripped, '%Y:%m:%d %H:%M:%S')
+                else:
+                    date = "unknown"
                 self._metadata.append({'datetime': date})
-                self._metadata.append({'model': my_image.make + " " + my_image.model})
-                self._metadata.append({'datetime_digitized': datetime_digitized})
-
-                return
+                if("Image Make" in my_image or "Image Model" in my_image):
+                    make = str(my_image.get('Image Make'))
+                    model = str(my_image.get('Image Model'))
+                    if(make is not None and model is not None): self._metadata.append({'model': make + " " + model})
 
     def getName(self):
         return self._head

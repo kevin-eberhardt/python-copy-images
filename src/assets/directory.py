@@ -14,10 +14,9 @@ class Directory():
             self._folder.append(newFolder)
         else:
             print("Nix gemacht")
-            print(element)
+
     def whatAmI(self):
         return self._head
-
 
     def getRoot(self):
         print("Folder in der Directory '" + self._head + "':")
